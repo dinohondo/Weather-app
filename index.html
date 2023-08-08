@@ -13,11 +13,27 @@
     <title>Weather app</title>
   </head>
   <body>
-    <div class="container-xl h-100 text-center py-auto">
-      <div class="row h-25 mb-3 align-items-center">
-        <div class="col">Column</div>
+    <div class="container-fluid h-100 text-center py-auto">
+      <div class="row mb-3 align-items-center h-auto">
+        <div class="col p-5">
+          <h1 class="display-1">What's the weather like?</h1>
+          <div class="container-sm p-5">
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="in..."
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+          <h5 class="display-5">Current location: <strong>Location</strong></h5>
+        </div>
       </div>
-      <div class="row h-75 column-gap-3 align-items-center">
+      <div class="row h-50 column-gap-3 align-items-center">
         <div class="col-md">Column</div>
         <div class="col-md">Column</div>
         <div class="col-md">Column</div>
