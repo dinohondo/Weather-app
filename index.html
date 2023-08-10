@@ -14,26 +14,30 @@
   </head>
   <body>
     <div class="container-fluid h-100 text-center py-auto">
-      <div class="row mb-3 align-items-center h-auto">
+      <div class="row h-auto mb-3 align-items-center">
         <div class="col p-5">
           <h1 class="display-1">What's the weather like?</h1>
-          <div class="container-sm p-5">
+          <div class="container-sm p-4">
             <form class="d-flex" role="search">
               <input
-                class="form-control me-2"
+                class="form-control"
                 type="search"
                 placeholder="in..."
                 aria-label="Search"
               />
-              <button class="btn btn-outline-success" type="submit">
+              <button class="btn btn-outline-success" type="button">
                 Search
               </button>
             </form>
           </div>
-          <h5 class="display-5">Current location: <strong>Location</strong></h5>
+
+          <button class="btn  btn-outline-success" id="my-location" type="button">
+            My location
+          </button>
         </div>
       </div>
       <div class="row h-50 column-gap-3 align-items-center">
+        <p class='display-6' id="location-display">Location</p class='display-6'>
         <div class="col-md">Column</div>
         <div class="col-md">Column</div>
         <div class="col-md">Column</div>
