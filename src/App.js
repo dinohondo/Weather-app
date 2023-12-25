@@ -2,7 +2,7 @@ import { Container, Typography, Box, TextField, Button } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PlaceIcon from '@mui/icons-material/Place';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 function App() {
   const [city, setCity] = useState('');
   const [error, setError] = useState(null);
@@ -15,15 +15,16 @@ function App() {
       const weatherResponse = await fetch(
         `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
       );
-      console.log(weatherResponse);
+      
 
       if (!weatherResponse.ok) {
         throw new Error('Failed to fetch weather data.');
       }
 
       const data = await weatherResponse.json();
-      console.log(data);
+      
       setWeatherData(data);
+      console.log(weatherData);
     } catch (error) {
       console.error('Error fetching weather data:', error);
       setError('Error getting weather information. Please try again.');
@@ -46,9 +47,9 @@ function App() {
       }
 
       const locationData = await response.json();
-      console.log(locationData);
+      
       if (locationData.length === 0) {
-        setError('City not found. Please enter a valid city name.');
+        console.error('City not found. Please enter a valid city name.', error);
         return;
       }
 
@@ -62,19 +63,22 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    console.log(weatherData.list[0]);
+  }, [weatherData]);
+
   return (
     <>
       <CssBaseline />
       <Container
         maxWidth='xl'
-        sx={{
-          height: '100vh',
-          padding: 4,
+        sx={{          padding: 4,
           gap: 1,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+        
         }}
       >
         <Box sx={{ textAlign: 'center' }}>
@@ -87,12 +91,14 @@ function App() {
           >
             What's the weather like?
           </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: 1 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: 1,justifyContent:'center',gap:2, }}>
             <TextField
+            sx={{}}
               id='outlined-basic'
               label='In...'
               variant='outlined'
               onChange={(e) => setCity(e.target.value)}
+              
             />
             <Button
               sx={{ maxWidth: 150 }}
@@ -111,9 +117,19 @@ function App() {
             Current location
           </Button>
         </Box>
-        <Box>
-          <Typography>{JSON.stringify(weatherData, 2)}</Typography>
-        </Box>
+        {weatherData && (
+          <Box>
+            {weatherData.list.map((item) => (
+              <Box key={item.dt}>
+                <Typography variant="h6">
+                  Date and Time: {item.dt_txt}
+                </Typography>
+                <Typography>Temperature: {item.main.temp} K</Typography>
+                <Typography>Weather: {item.weather[0].description}</Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
       </Container>
     </>
   );
