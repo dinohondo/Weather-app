@@ -13,4 +13,5 @@ locationBtn.addEventListener('click', function () {
   }
 });
 /* 2. search location */
+
 /* 3. display  weather*/
